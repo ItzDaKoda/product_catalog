@@ -5,16 +5,9 @@ print("Available Products:")
 for product in products:
     print(product)
 
-# Step 2 - Create a list called customer_preferences and store the user preference in this list.
-customer_preferences = []
-
-response = ""
-while response != "N":
-    print("Input a preference:")
-    preference = input().lower().strip()   
-    customer_preferences.append(preference)
-
-    response = input("Do you want to add another preference? (Y/N): ").upper()
+# Step 2 - Mock customer preferences (instead of typing input)
+customer_preferences = ["eco-friendly", "durable", "compact"]  # <<< MOCK DATA
+print("\nCustomer Preferences:", customer_preferences)
 
 # Step 3 - Convert customer_preferences list to set to eliminate duplicates.
 customer_tags = set(customer_preferences)
@@ -53,7 +46,6 @@ def recommend_products(products, customer_tags):
         if matches > 0:  # only recommend if at least one tag matches
             results.append({"name": product["name"], "matches": matches})
 
-    # Sort products by match count, descending
     return sorted(results, key=lambda x: x["matches"], reverse=True)
 
 # Step 7 - Call your function and print the results
@@ -63,8 +55,8 @@ print("\nRecommended Products:")
 for rec in recommendations:
     print(f"{rec['name']} (matches: {rec['matches']})")
 
-# DESIGN MEMO:
-
+# DESIGN MEMO
+#
 # The core logic of this program relies heavily on Python sets and loops.
 # Sets are ideal for this task because they allow efficient membership tests 
 # and quick mathematical operations like intersections. Specifically, the 
@@ -74,14 +66,14 @@ for rec in recommendations:
 # loops, especially as the number of tags grows. The use of sets also ensures 
 # that duplicates are automatically eliminated, which makes the comparisons 
 # both clean and efficient.
-
+#
 # The program also depends on simple iteration. In recommend_products, we loop 
 # through every product in the catalog, calculate the number of matching tags, 
 # and collect results in a list. This approach guarantees that every product is 
 # considered, and sorting the results by match count ensures that the most 
 # relevant recommendations are presented first. The design is straightforward, 
 # readable, and easy to extend in the future.
-
+#
 # If the product catalog contained 1,000 or more items, this approach would 
 # still work efficiently because set operations are generally very fast (close 
 # to O(1) for membership and intersection lookups). However, scalability 
@@ -91,7 +83,6 @@ for rec in recommendations:
 # than looping over every product in the catalog. Additionally, caching 
 # frequently used results or leveraging a database with indexing could help if 
 # the dataset grows into tens of thousands of products.
-
+#
 # Overall, this design balances clarity, efficiency, and scalability for a 
 # medium-sized catalog while leaving room for optimization in larger systems.
-
